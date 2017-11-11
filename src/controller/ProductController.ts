@@ -19,7 +19,9 @@ class ProductController {
 
         router.post('/products', (request, response) => {
             console.log('POST /products')
-            response.json(request.body)
+            console.log(JSON.stringify(request.body))
+            repository.save(request.body)
+            response.status(201)
         })
 
         router.put('/products/:id', (request, response) => {

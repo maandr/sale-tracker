@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 import ProductController from './controller/ProductController'
 
 class App {
@@ -8,10 +9,13 @@ class App {
     constructor() {
         this.express = express()
         const router = express.Router()
+
+        this.express.use(bodyParser.json())
+        this.express.use('/api', router)
+
         this.controllers = [
             new ProductController(router)
         ]
-        this.express.use('/api', router)
     }
 }
 

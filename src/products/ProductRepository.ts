@@ -1,22 +1,24 @@
 import * as mysql from 'mysql'
 
 class ProductRepository {
-    protected mysql;
+    protected connection;
 
     constructor() {
         this.initializeDatabaseConnection();
     }
 
     private initializeDatabaseConnection() : void {
-        this.mysql = mysql.createConnection({
+        this.connection = mysql.createConnection({
             host     : '192.168.99.100',
             user     : 'admin',
             password : 'admin',
             database : 'sales_tracking'
         });
 
-        this.mysql.connect(function(error) {
-          console.log(error)  
+        this.connection.connect(function(error) {
+            if(error) {
+                console.log(error)  
+            }
         })
     }
 
@@ -33,6 +35,16 @@ class ProductRepository {
 
     public save(product : Product) {
         console.log('saving product ' + product)
+        this.connection.query('INSERT INTO products (sku, name, price, stockLevel) VALUES (?, ?, ?, ?)', [
+            product.sku,
+            product.name,
+            product.price,
+            product.stockLevel
+        ], function(error, results, fields) {
+            if(error) {
+                console.log(error)
+            }
+        });
     }
 
     public delete(product : Product) {
