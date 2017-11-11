@@ -1,0 +1,17 @@
+{
+  "name": "sales-tracker",
+  "version": "1.0.0",
+  "description": "Accounting Tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "express": "^4.16.0",
+    "mysql": "^2.15.0",
+    "mocha": "^3.0.0",
+    "axios": "^0.17.0"
+  },
+  "author": "Mats Andresen",
+  "license": "ISC"
+}
