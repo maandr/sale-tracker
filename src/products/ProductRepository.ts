@@ -1,4 +1,5 @@
 import EntityRepository from '../entity/EntityRepository'
+import Product from './Product'
 
 class ProductRepository extends EntityRepository {
     constructor() {
@@ -24,7 +25,7 @@ class ProductRepository extends EntityRepository {
                 product.price,
                 product.stockLevel,
                 product.id
-            ])
+            ]) // TODO: update on non existing entiy does not raise a exception
         } else {
             return await this.query('INSERT INTO products (sku, name, price, stockLevel) VALUES (?, ?, ?, ?)', [
                 product.sku,

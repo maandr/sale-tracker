@@ -5,3 +5,5 @@ interface Product {
     price : number
     stockLevel : number
 }
+
+export default Product
