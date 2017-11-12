@@ -1,54 +1,43 @@
-import * as mysql from 'mysql'
+import EntityRepository from '../entity/EntityRepository'
 
-class ProductRepository {
-    protected connection;
-
+class ProductRepository extends EntityRepository {
     constructor() {
-        this.initializeDatabaseConnection();
+        super();
     }
 
-    private initializeDatabaseConnection() : void {
-        this.connection = mysql.createConnection({
-            host     : '192.168.99.100',
-            user     : 'admin',
-            password : 'admin',
-            database : 'sales_tracking'
-        });
-
-        this.connection.connect(function(error) {
-            if(error) {
-                console.log(error)  
-            }
-        })
+    public async findAll() : Promise<any> {
+        console.log('retrieving all products')
+        return await this.query('SELECT * FROM products')
     }
 
-    public findAll() : Array<Product> {
-        return [
-            { sku: '1001-XS', name: 'Riot Dont Diet Shirt Black', price: 29.99, stockLevel: 5 },
-            { sku: '1001-S', name: 'Riot Dont Diet Shirt Black', price: 29.99, stockLevel: 7 }
-        ]
+    public async findOne(id : number) {
+        console.log('finding product by id: ' + id)
+        return await this.query('SELECT * FROM products WHERE id = ?', [ id ])
     }
 
-    public findOne(sku : string) {
-        console.log('finding product by sku: ' + sku)
+    public async save(product : Product) {
+        console.log('saving product ' + JSON.stringify(product))
+        if(product.id) {
+            return await this.query('UPDATE products SET sku = ?, name = ?, price = ?, stockLevel = ? WHERE id = ?', [
+                product.sku,
+                product.name,
+                product.price,
+                product.stockLevel,
+                product.id
+            ])
+        } else {
+            return await this.query('INSERT INTO products (sku, name, price, stockLevel) VALUES (?, ?, ?, ?)', [
+                product.sku,
+                product.name,
+                product.price,
+                product.stockLevel
+            ])
+        }
     }
 
-    public save(product : Product) {
-        console.log('saving product ' + product)
-        this.connection.query('INSERT INTO products (sku, name, price, stockLevel) VALUES (?, ?, ?, ?)', [
-            product.sku,
-            product.name,
-            product.price,
-            product.stockLevel
-        ], function(error, results, fields) {
-            if(error) {
-                console.log(error)
-            }
-        });
-    }
-
-    public delete(product : Product) {
-        console.log('deleting product ' + product)
+    public async delete(id : number) {
+        console.log('deleting product ' + id)
+        return await this.query('DELETE FROM products WHERE id = ?', [ id ])
     }
 }
 
