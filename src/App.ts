@@ -1,6 +1,7 @@
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import ProductController from './controller/ProductController'
+import OrderController from './controller/OrderController'
 
 class App {
     public express
@@ -14,7 +15,8 @@ class App {
         this.express.use('/api', router)
 
         this.controllers = [
-            new ProductController(router)
+            new ProductController(router),
+            new OrderController(router)
         ]
     }
 }

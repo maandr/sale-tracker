@@ -30,7 +30,7 @@ class EntityRepository {
     }
 
     protected reconnect() {
-        console.log("attempting to reconnect..")
+        console.log("attempting to reconnect..")// TODO this dosent work, connection is undef
         this.connection.connect((error) => { if(error) console.log(error) });
     }
 
