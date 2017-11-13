@@ -1,4 +1,10 @@
 import * as mysql from 'mysql'
+import * as process from 'process'
+
+const MYSQL_HOSTNAME = process.env.DOCKER_IP || '192.168.99.100'
+const MYSQL_USERNAME = process.env.MYSQL_USER || 'admin'
+const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || 'admin'
+const MYSQL_DATABASE = process.env.MYSQL_DATABASE || 'serp'
 
 class EntityRepository {
     protected connection
@@ -9,12 +15,22 @@ class EntityRepository {
 
     private initializeConnection() : void {
         this.connection = mysql.createConnection({
-            host     : '192.168.99.100',
-            user     : 'admin',
-            password : 'admin',
-            database : 'sales_tracking'
+            host     : MYSQL_HOSTNAME,
+            user     : MYSQL_USERNAME,
+            password : MYSQL_PASSWORD,
+            database : MYSQL_DATABASE
         });
 
+        this.connection.connect((error) => { 
+            if(error) {
+                console.log(error)
+                setTimeout(this.reconnect, 3000)
+            }
+        });
+    }
+
+    protected reconnect() {
+        console.log("attempting to reconnect..")
         this.connection.connect((error) => { if(error) console.log(error) });
     }
 

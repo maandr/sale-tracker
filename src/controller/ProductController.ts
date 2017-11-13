@@ -63,7 +63,8 @@ class ProductController {
                 sku: request.body.sku,
                 name: request.body.name,
                 price: request.body.price,
-                stockLevel: request.body.stockLevel
+                stockLevel: request.body.stockLevel,
+                tags: request.body.tags
             })
             response.status(200).json(request.body)
         } catch(error) {

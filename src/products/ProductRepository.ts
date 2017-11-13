@@ -19,19 +19,21 @@ class ProductRepository extends EntityRepository {
     public async save(product : Product) : Promise<void> {
         console.log('saving product ' + JSON.stringify(product))
         if(product.id) {
-            return await this.query('UPDATE products SET sku = ?, name = ?, price = ?, stockLevel = ? WHERE id = ?', [
+            return await this.query('UPDATE products SET sku = ?, name = ?, price = ?, stockLevel = ?, tags = ? WHERE id = ?', [
                 product.sku,
                 product.name,
                 product.price,
                 product.stockLevel,
+                product.tags.join(),
                 product.id
             ]) // TODO: update on non existing entiy does not raise a exception
         } else {
-            return await this.query('INSERT INTO products (sku, name, price, stockLevel) VALUES (?, ?, ?, ?)', [
+            return await this.query('INSERT INTO products (sku, name, price, stockLevel, tags) VALUES (?, ?, ?, ?, ?)', [
                 product.sku,
                 product.name,
                 product.price,
-                product.stockLevel
+                product.stockLevel,
+                product.tags.join()
             ])
         }
     }

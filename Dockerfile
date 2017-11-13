@@ -4,10 +4,12 @@ EXPOSE 3000
 
 COPY package.json package.json
 
+RUN npm install -g typescript
+
 RUN npm install
 
 COPY . .
 
-RUN npm build
+RUN tsc
 
 CMD ["node", "dist/index.js"]

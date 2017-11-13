@@ -1,9 +1,10 @@
 interface Product {
-    id?: number,
+    id?: number
     sku: string
     name : string
     price : number
     stockLevel : number
+    tags: Array<string>
 }
 
 export default Product
