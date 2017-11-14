@@ -4,7 +4,7 @@ interface Product {
     name : string
     price : number
     stockLevel : number
-    tags: Array<string>
+    tags?: Array<string>
 }
 
 export default Product

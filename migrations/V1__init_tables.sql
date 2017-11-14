@@ -4,7 +4,7 @@ CREATE TABLE products (
     `name` varchar(120) NOT NULL,
     `price` decimal,
     `stockLevel` int,
-    `tags` varchar(220),
+    `tags` varchar(300),
     PRIMARY KEY(id)
 );
 
