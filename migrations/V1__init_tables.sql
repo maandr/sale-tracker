@@ -1,5 +1,9 @@
+use serpdb;
+
 CREATE TABLE products (
     `id` int NOT NULL AUTO_INCREMENT,
+    `created_at` timestamp NOT NULL,
+    `modified_at` timestamp NOT NULL DEFAULT NOW() ON UPDATE NOW(),
     `sku` varchar(20) NOT NULL,
     `name` varchar(120) NOT NULL,
     `price` decimal,
@@ -11,11 +15,12 @@ CREATE TABLE products (
 -- TODO: auto set createdAt
 CREATE TABLE orders (
     `id` int NOT NULL AUTO_INCREMENT,
-    `createdAt` datetime NOT NULL,
+    `created_at` timestamp NOT NULL,
+    `modified_at` timestamp NOT NULL DEFAULT NOW() ON UPDATE NOW(),
     `status` varchar(20) NOT NULL,
-    `paymentMethod` varchar(60) NOT NULL,
-    `shippingMethod` varchar(60) NOT NULL,
-    `shippingPrice` decimal NOT NULL,
+    `payment_method` varchar(60) NOT NULL,
+    `shipping_method` varchar(60) NOT NULL,
+    `shipping_price` decimal NOT NULL,
     `firstname` varchar(60) NOT NULL,
     `lastname` varchar(60) NOT NULL,
     `street` varchar(60) NOT NULL,
