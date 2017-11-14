@@ -24,14 +24,8 @@ class EntityRepository {
         this.connection.connect((error) => { 
             if(error) {
                 console.log(error)
-                setTimeout(this.reconnect, 3000)
             }
         });
-    }
-
-    protected reconnect() {
-        console.log("attempting to reconnect..")// TODO this dosent work, connection is undef
-        this.connection.connect((error) => { if(error) console.log(error) });
     }
 
     protected async query(statement : string, variables? : Array<any>) : Promise<any> {
