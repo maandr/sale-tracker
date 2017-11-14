@@ -8,6 +8,7 @@ CREATE TABLE products (
     PRIMARY KEY(id)
 );
 
+-- TODO: auto set createdAt
 CREATE TABLE orders (
     `id` int NOT NULL AUTO_INCREMENT,
     `createdAt` datetime NOT NULL,
@@ -25,13 +26,16 @@ CREATE TABLE orders (
     PRIMARY KEY(id)
 );
 
+-- TODO: onDelete cascade
 CREATE TABLE lineitems (
     `id` int NOT NULL AUTO_INCREMENT,
     `name` varchar(80) NOT NULL,
+    `amount` int NOT NULL,
     `price` decimal NOT NULL,
     PRIMARY KEY(id)
 );
 
+-- TODO: onDelete cascade
 CREATE TABLE m_order_lineitem (
     `orderId` int NOT NULL,
     `lineitemId` int NOT NULL

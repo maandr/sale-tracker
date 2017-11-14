@@ -1,6 +1,8 @@
+import LineItem from './LineItem'
+
 interface Order {
     id? : number
-    createdAt : string
+    createdAt? : string
     status : string
     paymentMethod : string
     shippingMethod : string
@@ -8,10 +10,11 @@ interface Order {
     firstname : string
     lastname : string
     street : string
-    street2 : string
+    street2? : string
     postalCode : string
     city : string
     country : string
+    lineItems : Array<LineItem>
 }
 
 export default Order
